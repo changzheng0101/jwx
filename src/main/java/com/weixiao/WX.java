@@ -14,6 +14,8 @@ import java.util.List;
  * @Created by weixiao
  */
 public class WX {
+    static boolean hadError = false;
+
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
             System.out.println("Usage: jwx [script]");
@@ -29,6 +31,7 @@ public class WX {
     private static void runFile(String path) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(path));
         run(new String(bytes, Charset.defaultCharset()));
+        if (hadError) System.exit(65);
     }
 
     // 类似于运行 python 之后的交互命令行 Control-D 终止命令行交互
@@ -40,9 +43,12 @@ public class WX {
             String line = reader.readLine();
             if (line == null) break;
             run(line);
+            // 交互模式下有错误不应该杀死程序
+            hadError = false;
         }
     }
 
+    //真正运行命令
     private static void run(String source) {
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
@@ -51,5 +57,14 @@ public class WX {
         for (Token token : tokens) {
             System.out.println(token);
         }
+    }
+
+    static void error(int line, String message) {
+        report(line, "", message);
+    }
+
+    private static void report(int line, String where, String message) {
+        System.err.println("[line " + line + "] Error" + where + ": " + message);
+        hadError = true;
     }
 }
