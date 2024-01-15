@@ -21,3 +21,13 @@ unary          → ( "!" | "-" ) unary
                | primary ;
 primary        → NUMBER | STRING | "true" | "false" | "nil"
                | "(" expression ")" ;
+
+
+假如var和print之后:
+program        → statement* EOF ;
+
+statement      → exprStmt
+               | printStmt ;
+
+exprStmt       → expression ";" ;
+printStmt      → "print" expression ";" ;

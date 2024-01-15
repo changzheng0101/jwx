@@ -1,18 +1,25 @@
 package com.weixiao;
 
+import java.util.List;
+
 /**
  * @Date 2024/1/15 21:15
  * @Created by weixiao
  */
-class Interpreter implements Expr.Visitor<Object> {
+class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
-    void interpret(Expr expression) {
+    void interpret(List<Stmt> statements) {
         try {
-            Object value = evaluate(expression);
-            System.out.println(stringify(value));
+            for (Stmt statement : statements) {
+                execute(statement);
+            }
         } catch (RuntimeError error) {
             WX.runtimeError(error);
         }
+    }
+
+    private void execute(Stmt stmt) {
+        stmt.accept(this);
     }
 
     private String stringify(Object object) {
@@ -130,5 +137,18 @@ class Interpreter implements Expr.Visitor<Object> {
 
     private Object evaluate(Expr expr) {
         return expr.accept(this);
+    }
+
+    @Override
+    public Void visitExpressionStmt(Stmt.Expression stmt) {
+        evaluate(stmt.expression);
+        return null;
+    }
+
+    @Override
+    public Void visitPrintStmt(Stmt.Print stmt) {
+        Object value = evaluate(stmt.expression);
+        System.out.println(stringify(value));
+        return null;
     }
 }
