@@ -31,3 +31,24 @@ statement      → exprStmt
 
 exprStmt       → expression ";" ;
 printStmt      → "print" expression ";" ;
+
+添加变量声明:
+program        → declaration* EOF ;
+
+declaration    → varDecl
+               | statement ;
+
+statement      → exprStmt
+               | printStmt ;
+
+varDecl        → "var" IDENTIFIER ( "=" expression )? ";" ;
+
+primary        → "true" | "false" | "nil"
+               | NUMBER | STRING
+               | "(" expression ")"
+               | IDENTIFIER ;
+
+增加变量可以重新赋值:
+expression     → assignment ;
+assignment     → IDENTIFIER "=" assignment
+               | equality ;
