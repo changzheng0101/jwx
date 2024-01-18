@@ -84,3 +84,15 @@ statement      → exprStmt
                | block ;
 
 whileStmt      → "while" "(" expression ")" statement ;
+
+添加for循环:
+statement      → exprStmt
+               | forStmt
+               | ifStmt
+               | printStmt
+               | whileStmt
+               | block ;
+
+forStmt        → "for" "(" ( varDecl | exprStmt | ";" )
+                 expression? ";"
+                 expression? ")" statement ;
