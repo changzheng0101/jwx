@@ -68,3 +68,10 @@ statement      → exprStmt
 
 ifStmt         → "if" "(" expression ")" statement
                ( "else" statement )? ;
+
+添加逻辑分析:
+expression     → assignment ;
+assignment     → IDENTIFIER "=" assignment
+               | logic_or ;
+logic_or       → logic_and ( "or" logic_and )* ;
+logic_and      → equality ( "and" equality )* ;
