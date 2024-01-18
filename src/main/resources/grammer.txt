@@ -52,3 +52,19 @@ primary        → "true" | "false" | "nil"
 expression     → assignment ;
 assignment     → IDENTIFIER "=" assignment
                | equality ;
+
+增加block scope:
+statement      → exprStmt
+               | printStmt
+               | block ;
+
+block          → "{" declaration* "}" ;
+
+添加if语句:
+statement      → exprStmt
+               | ifStmt
+               | printStmt
+               | block ;
+
+ifStmt         → "if" "(" expression ")" statement
+               ( "else" statement )? ;
