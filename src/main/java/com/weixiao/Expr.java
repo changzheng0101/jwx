@@ -8,6 +8,8 @@ abstract class Expr {
 
         R visitBinaryExpr(Binary expr);
 
+        R visitCallExpr(Call call);
+
         R visitGroupingExpr(Grouping expr);
 
         R visitLiteralExpr(Literal expr);
@@ -50,6 +52,29 @@ abstract class Expr {
         final Expr left;
         final Token operator;
         final Expr right;
+    }
+
+    static class Call extends Expr {
+        /**
+         *
+         * @param callee function name or something like func()()
+         * @param paren end ")" use for runtime error report
+         * @param arguments
+         */
+        Call(Expr callee, Token paren, List<Expr> arguments) {
+            this.callee = callee;
+            this.paren = paren;
+            this.arguments = arguments;
+        }
+
+        @Override
+        <R> R accept(Visitor<R> visitor) {
+            return visitor.visitCallExpr(this);
+        }
+
+        final Expr callee;
+        final Token paren;
+        final List<Expr> arguments;
     }
 
     static class Grouping extends Expr {
