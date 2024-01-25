@@ -9,9 +9,12 @@ import java.util.List;
  */
 public class WxFunction implements WXCallable {
     private final Stmt.Function declaration;
+    // store var declare in func
+    private final Environment closure;
 
-    WxFunction(Stmt.Function declaration) {
+    public WxFunction(Stmt.Function declaration, Environment closure) {
         this.declaration = declaration;
+        this.closure = closure;
     }
 
     @Override
@@ -21,7 +24,7 @@ public class WxFunction implements WXCallable {
 
     @Override
     public Object call(Interpreter interpreter, List<Object> arguments) {
-        Environment environment = new Environment(interpreter.globals);
+        Environment environment = new Environment(closure);
         for (int i = 0; i < declaration.params.size(); i++) {
             environment.define(declaration.params.get(i).lexeme,
                     arguments.get(i));
