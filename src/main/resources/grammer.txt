@@ -101,3 +101,22 @@ forStmt        → "for" "(" ( varDecl | exprStmt | ";" )
 unary          → ( "!" | "-" ) unary | call ;
 call           → primary ( "(" arguments? ")" )* ;
 arguments      → expression ( "," expression )* ;
+
+添加函数声明:
+declaration    → funDecl
+               | varDecl
+               | statement ;
+funDecl        → "fun" function ;
+function       → IDENTIFIER "(" parameters? ")" block ;
+parameters     → IDENTIFIER ( "," IDENTIFIER )* ;
+
+添加函数返回值:
+statement      → exprStmt
+               | forStmt
+               | ifStmt
+               | printStmt
+               | returnStmt
+               | whileStmt
+               | block ;
+
+returnStmt     → "return" expression? ";" ;

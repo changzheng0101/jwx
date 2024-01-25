@@ -224,6 +224,13 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Void visitFunctionStmt(Stmt.Function stmt) {
+        WxFunction function = new WxFunction(stmt);
+        environment.define(stmt.name.lexeme, function);
+        return null;
+    }
+
+    @Override
     public Void visitAssignStmt(Stmt.Assign stmt) {
         environment.define(stmt.name.lexeme, evaluate(stmt.value));
         return null;
