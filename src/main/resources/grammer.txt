@@ -130,3 +130,10 @@ declaration    → classDecl
 classDecl      → "class" IDENTIFIER "{" function* "}" ;
 function       → IDENTIFIER "(" parameters? ")" block ;
 parameters     → IDENTIFIER ( "," IDENTIFIER )* ;
+
+增加属性访问:
+call           → primary ( "(" arguments? ")" | "." IDENTIFIER )* ;
+
+添加属性set:
+assignment     → ( call "." )? IDENTIFIER "=" assignment
+               | logic_or ;

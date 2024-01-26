@@ -20,6 +20,9 @@ abstract class Expr {
 
         R visitVariableExpr(Variable expr);
 
+        R visitGetExpr(Get expr);
+
+        R visitSetExpr(Set expr);
     }
 
     static class Assign extends Expr {
@@ -56,9 +59,8 @@ abstract class Expr {
 
     static class Call extends Expr {
         /**
-         *
-         * @param callee function name or something like func()()
-         * @param paren end ")" use for runtime error report
+         * @param callee    function name or something like func()()
+         * @param paren     end ")" use for runtime error report
          * @param arguments
          */
         Call(Expr callee, Token paren, List<Expr> arguments) {
@@ -75,6 +77,38 @@ abstract class Expr {
         final Expr callee;
         final Token paren;
         final List<Expr> arguments;
+    }
+
+    static class Get extends Expr {
+        Get(Expr object, Token name) {
+            this.object = object;
+            this.name = name;
+        }
+
+        @Override
+        <R> R accept(Visitor<R> visitor) {
+            return visitor.visitGetExpr(this);
+        }
+
+        final Expr object;
+        final Token name;
+    }
+
+    static class Set extends Expr {
+        Set(Expr object, Token name, Expr value) {
+            this.object = object;
+            this.name = name;
+            this.value = value;
+        }
+
+        @Override
+        <R> R accept(Visitor<R> visitor) {
+            return visitor.visitSetExpr(this);
+        }
+
+        final Expr object;
+        final Token name;
+        final Expr value;
     }
 
     static class Grouping extends Expr {

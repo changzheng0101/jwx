@@ -88,7 +88,6 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
 
-
     @Override
     public Object visitBinaryExpr(Expr.Binary expr) {
         Object left = evaluate(expr.left);
@@ -202,6 +201,31 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         return lookUpVariable(expr.name, expr);
     }
 
+    @Override
+    public Object visitGetExpr(Expr.Get expr) {
+        Object object = evaluate(expr.object);
+        if (object instanceof WxInstance) {
+            return ((WxInstance) object).get(expr.name);
+        }
+
+        throw new RuntimeError(expr.name,
+                "Only instances have properties.");
+    }
+
+    @Override
+    public Object visitSetExpr(Expr.Set expr) {
+        Object object = evaluate(expr.object);
+
+        if (!(object instanceof WxInstance)) {
+            throw new RuntimeError(expr.name,
+                    "Only instances have fields.");
+        }
+
+        Object value = evaluate(expr.value);
+        ((WxInstance) object).set(expr.name, value);
+        return value;
+    }
+
     private Object lookUpVariable(Token name, Expr expr) {
         Integer distance = locals.get(expr);
         if (distance != null) {
@@ -252,7 +276,14 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     @Override
     public Void visitClassStmt(Stmt.Class stmt) {
         environment.define(stmt.name.lexeme, null);
-        WxClass klass = new WxClass(stmt.name.lexeme);
+
+        Map<String, WxFunction> methods = new HashMap<>();
+        for (Stmt.Function method : stmt.methods) {
+            WxFunction function = new WxFunction(method, environment);
+            methods.put(method.name.lexeme, function);
+        }
+
+        WxClass klass = new WxClass(stmt.name.lexeme, methods);
         environment.assign(stmt.name, klass);
         return null;
     }
