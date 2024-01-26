@@ -13,7 +13,6 @@ abstract class Stmt {
 
         R visitFunctionStmt(Function stmt);
 
-        R visitAssignStmt(Assign stmt);
 
         R visitPrintStmt(Print stmt);
 
@@ -70,21 +69,6 @@ abstract class Stmt {
         final Token name;
         final List<Token> params;
         final List<Stmt> body;
-    }
-
-    static class Assign extends Stmt {
-        Assign(Token name, Expr value) {
-            this.name = name;
-            this.value = value;
-        }
-
-        @Override
-        <R> R accept(Visitor<R> visitor) {
-            return visitor.visitAssignStmt(this);
-        }
-
-        final Token name;
-        final Expr value;
     }
 
     static class Print extends Stmt {
