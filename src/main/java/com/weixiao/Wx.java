@@ -13,7 +13,7 @@ import java.util.List;
  * @Date 2024/1/10 16:14
  * @Created by weixiao
  */
-public class WX {
+public class Wx {
     static boolean hadError = false;
     static boolean hadRuntimeError = false;
     private static final Interpreter interpreter = new Interpreter();

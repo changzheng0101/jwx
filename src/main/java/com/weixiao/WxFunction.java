@@ -7,7 +7,7 @@ import java.util.List;
  * @Created by weixiao
  * when you declare a function create an Object like this
  */
-public class WxFunction implements WXCallable {
+public class WxFunction implements WxCallable {
     private final Stmt.Function declaration;
     // store var declare in func
     private final Environment closure;

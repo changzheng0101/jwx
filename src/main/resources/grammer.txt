@@ -120,3 +120,13 @@ statement      → exprStmt
                | block ;
 
 returnStmt     → "return" expression? ";" ;
+
+添加class声明:
+declaration    → classDecl
+               | funDecl
+               | varDecl
+               | statement ;
+
+classDecl      → "class" IDENTIFIER "{" function* "}" ;
+function       → IDENTIFIER "(" parameters? ")" block ;
+parameters     → IDENTIFIER ( "," IDENTIFIER )* ;

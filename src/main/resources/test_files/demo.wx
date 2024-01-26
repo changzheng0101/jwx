@@ -1,10 +1,7 @@
-var a = "global";
-{
-  fun showA() {
-    print a;
+class DevonshireCream {
+  serveOn() {
+    return "Scones";
   }
-
-  showA();
-  a = "xxxx";
-  showA();
 }
+
+print DevonshireCream;

@@ -128,7 +128,7 @@ class Scanner {
                 } else if (isAlpha(c)) {
                     identifier();
                 } else {
-                    WX.error(line, "Unexpected character.");
+                    Wx.error(line, "Unexpected character.");
                 }
                 break;
         }
@@ -172,7 +172,7 @@ class Scanner {
         }
 
         if (isAtEnd()) {
-            WX.error(line, "Unterminated string.");
+            Wx.error(line, "Unterminated string.");
             return;
         }
 

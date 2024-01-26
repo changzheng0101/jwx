@@ -16,7 +16,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
 
     public Interpreter() {
-        globals.define("clock", new WXCallable() {
+        globals.define("clock", new WxCallable() {
             @Override
             public int arity() {
                 return 0;
@@ -40,7 +40,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                 execute(statement);
             }
         } catch (RuntimeError error) {
-            WX.runtimeError(error);
+            Wx.runtimeError(error);
         }
     }
 
@@ -144,11 +144,11 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             arguments.add(evaluate(argument));
         }
 
-        if (!(callee instanceof WXCallable)) {
+        if (!(callee instanceof WxCallable)) {
             throw new RuntimeError(expr.paren,
                     "Can only call functions and classes.");
         }
-        WXCallable function = (WXCallable) callee;
+        WxCallable function = (WxCallable) callee;
         // arity() return the true args size of callee
         if (arguments.size() != function.arity()) {
             throw new RuntimeError(expr.paren, "Expected " +
@@ -246,6 +246,14 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     @Override
     public Void visitExpressionStmt(Stmt.Expression stmt) {
         evaluate(stmt.expression);
+        return null;
+    }
+
+    @Override
+    public Void visitClassStmt(Stmt.Class stmt) {
+        environment.define(stmt.name.lexeme, null);
+        WxClass klass = new WxClass(stmt.name.lexeme);
+        environment.assign(stmt.name, klass);
         return null;
     }
 

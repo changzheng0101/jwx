@@ -68,7 +68,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
         Map<String, Boolean> scope = scopes.peek();
         if (scope.containsKey(name.lexeme)) {
-            WX.error(name,
+            Wx.error(name,
                     "Already a variable with this name in this scope.");
         }
         scope.put(name.lexeme, false);
@@ -83,7 +83,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     public Void visitVariableExpr(Expr.Variable expr) {
         if (!scopes.isEmpty() &&
                 scopes.peek().get(expr.name.lexeme) == Boolean.FALSE) {
-            WX.error(expr.name,
+            Wx.error(expr.name,
                     "Can't read local variable in its own initializer.");
         }
 
@@ -118,7 +118,6 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     }
 
 
-
     private void resolveFunction(Stmt.Function function, FunctionType type) {
         FunctionType enclosingFunction = currentFunction;
         currentFunction = type;
@@ -141,6 +140,13 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Void visitClassStmt(Stmt.Class stmt) {
+        declare(stmt.name);
+        define(stmt.name);
+        return null;
+    }
+
+    @Override
     public Void visitIfStmt(Stmt.If stmt) {
         resolve(stmt.condition);
         resolve(stmt.thenBranch);
@@ -157,7 +163,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitReturnStmt(Stmt.Return stmt) {
         if (currentFunction == FunctionType.NONE) {
-            WX.error(stmt.keyword, "Can't return from top-level code.");
+            Wx.error(stmt.keyword, "Can't return from top-level code.");
         }
 
         if (stmt.value != null) {
