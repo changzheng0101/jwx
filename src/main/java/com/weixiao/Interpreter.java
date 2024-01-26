@@ -226,6 +226,11 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         return value;
     }
 
+    @Override
+    public Object visitThisExpr(Expr.This expr) {
+        return lookUpVariable(expr.keyword, expr);
+    }
+
     private Object lookUpVariable(Token name, Expr expr) {
         Integer distance = locals.get(expr);
         if (distance != null) {
@@ -279,7 +284,8 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
         Map<String, WxFunction> methods = new HashMap<>();
         for (Stmt.Function method : stmt.methods) {
-            WxFunction function = new WxFunction(method, environment);
+            WxFunction function = new WxFunction(method, environment,
+                    method.name.lexeme.equals("init"));
             methods.put(method.name.lexeme, function);
         }
 
@@ -290,7 +296,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitFunctionStmt(Stmt.Function stmt) {
-        WxFunction function = new WxFunction(stmt, environment);
+        WxFunction function = new WxFunction(stmt, environment, false);
         environment.define(stmt.name.lexeme, function);
         return null;
     }

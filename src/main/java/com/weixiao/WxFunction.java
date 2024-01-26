@@ -11,10 +11,12 @@ public class WxFunction implements WxCallable {
     private final Stmt.Function declaration;
     // store var declare in func
     private final Environment closure;
+    private final boolean isInitializer;
 
-    public WxFunction(Stmt.Function declaration, Environment closure) {
+    public WxFunction(Stmt.Function declaration, Environment closure, boolean isInitializer) {
         this.declaration = declaration;
         this.closure = closure;
+        this.isInitializer = isInitializer;
     }
 
     @Override
@@ -33,13 +35,23 @@ public class WxFunction implements WxCallable {
         try {
             interpreter.executeBlock(declaration.body, environment);
         } catch (Return returnValue) {
+            if (isInitializer) return closure.getAt(0, "this");
+
             return returnValue.value;
         }
+
+        if (isInitializer) return closure.getAt(0, "this");
         return null;
     }
 
     @Override
     public String toString() {
         return "<fn " + declaration.name.lexeme + ">";
+    }
+
+    public WxFunction bind(WxInstance instance) {
+        Environment environment = new Environment(closure);
+        environment.define("this", instance);
+        return new WxFunction(declaration, environment, isInitializer);
     }
 }
