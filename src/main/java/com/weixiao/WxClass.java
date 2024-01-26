@@ -9,10 +9,12 @@ import java.util.Map;
  */
 public class WxClass implements WxCallable {
     final String name;
+    final WxClass superclass;
     private final Map<String, WxFunction> methods;
 
-    WxClass(String name, Map<String, WxFunction> methods) {
+    WxClass(String name, WxClass superclass, Map<String, WxFunction> methods) {
         this.name = name;
+        this.superclass = superclass;
         this.methods = methods;
     }
 
@@ -42,6 +44,10 @@ public class WxClass implements WxCallable {
     public WxFunction findMethod(String name) {
         if (methods.containsKey(name)) {
             return methods.get(name);
+        }
+
+        if (superclass != null) {
+            return superclass.findMethod(name);
         }
 
         return null;

@@ -1,12 +1,6 @@
-class Cake {
-  taste() {
-    var adjective = "delicious";
-    print "The " + this.flavor + " cake is " + adjective + "!";
+class Eclair {
+  cook() {
+    super.cook();
+    print "Pipe full of crème pâtissière.";
   }
 }
-
-var cake = Cake();
-cake.flavor = "German chocolate";
-cake.taste();
-var taste = cake.taste;
-taste();

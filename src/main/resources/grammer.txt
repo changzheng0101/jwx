@@ -137,3 +137,13 @@ call           → primary ( "(" arguments? ")" | "." IDENTIFIER )* ;
 添加属性set:
 assignment     → ( call "." )? IDENTIFIER "=" assignment
                | logic_or ;
+
+增加继承关系:
+classDecl      → "class" IDENTIFIER ( "<" IDENTIFIER )?
+                 "{" function* "}" ;
+
+添加super调用父类方法:
+primary        → "true" | "false" | "nil" | "this"
+               | NUMBER | STRING | IDENTIFIER | "(" expression ")"
+               | "super" "." IDENTIFIER ;
+
