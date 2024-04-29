@@ -24,10 +24,10 @@ public class WxClass implements WxCallable {
     }
 
     @Override
-    public int arity() {
+    public int paramSize() {
         WxFunction initializer = findMethod("init");
         if (initializer == null) return 0;
-        return initializer.arity();
+        return initializer.paramSize();
     }
 
     @Override

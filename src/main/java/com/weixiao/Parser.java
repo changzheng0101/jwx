@@ -9,6 +9,8 @@ import static com.weixiao.TokenType.*;
 /**
  * @Date 2024/1/11 20:56
  * @Created by weixiao
+ * Semantic Analysis (语法分析)
+ * 检测语法是否正确
  */
 class Parser {
     private static class ParseError extends RuntimeException {
@@ -65,6 +67,9 @@ class Parser {
         return new Stmt.Class(name, superclass, methods);
     }
 
+    /**
+     * @param kind "function" and "method"
+     */
     private Stmt.Function function(String kind) {
         Token name = consume(IDENTIFIER, "Expect " + kind + " name.");
         consume(LEFT_PAREN, "Expect '(' after " + kind + " name.");
@@ -218,6 +223,7 @@ class Parser {
     }
 
     private Expr assignment() {
+        // l-value
         Expr expr = or();
 
         if (match(EQUAL)) {
@@ -225,9 +231,11 @@ class Parser {
             Expr value = assignment();
 
             if (expr instanceof Expr.Variable) {
+                // a = 3;  expr is a,value is 3
                 Token name = ((Expr.Variable) expr).name;
                 return new Expr.Assign(name, value);
             } else if (expr instanceof Expr.Get) {
+                // newPoint(x + 2, 0).y = 3; expr is newPoint(x + 2, 0).y
                 Expr.Get get = (Expr.Get) expr;
                 return new Expr.Set(get.object, get.name, value);
             }

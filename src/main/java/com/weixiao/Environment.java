@@ -20,7 +20,7 @@ public class Environment {
         this.enclosing = enclosing;
     }
 
-    // allow redefine a variable
+    // allow to redefine a variable, useful for REPL
     void define(String name, Object value) {
         values.put(name, value);
     }

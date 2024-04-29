@@ -8,13 +8,20 @@ import java.util.Stack;
 /**
  * @Date 2024/1/25 17:07
  * @Created by weixiao
+ * Semantic Analysis (语义分析)
+ * define: 往scopes中对应的scope加入值
+ * get:    获取变量对应的depth，知道往上找几个env
  */
 class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
+    // 主要为了访问里面的locals
     private final Interpreter interpreter;
+    // 只追踪local，如果找不到，一定是global变量
+    // key: variable name , value: 声明的时候为true，define之后为false
     private final Stack<Map<String, Boolean>> scopes = new Stack<>();
     private FunctionType currentFunction = FunctionType.NONE;
     private ClassType currentClass = ClassType.NONE;
 
+    // 指定当前的执行环境，例如在global使用了return，可以早早的发现错误并报告
     private enum FunctionType {
         NONE,
         METHOD,
@@ -148,6 +155,9 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
     private void resolveLocal(Expr expr, Token name) {
         for (int i = scopes.size() - 1; i >= 0; i--) {
+            // scopes.size() - 1 - i : how far to var
+            // current is 0, parent is 1
+            // we may have lots of `var a`,but they have diff expr
             if (scopes.get(i).containsKey(name.lexeme)) {
                 interpreter.resolve(expr, scopes.size() - 1 - i);
                 return;

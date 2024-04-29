@@ -1,0 +1,18 @@
+class A {
+  init(){
+      this.demo = "hello";
+      print "test";
+  }
+}
+
+class B < A {
+  method() {
+    print "B method";
+  }
+
+  test() {
+    super.method();
+  }
+}
+
+print B().demo;

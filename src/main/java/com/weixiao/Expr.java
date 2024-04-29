@@ -65,7 +65,7 @@ abstract class Expr {
         /**
          * @param callee    function name or something like func()()
          * @param paren     end ")" use for runtime error report
-         * @param arguments
+         * @param arguments arg list
          */
         Call(Expr callee, Token paren, List<Expr> arguments) {
             this.callee = callee;

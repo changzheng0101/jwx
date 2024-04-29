@@ -6,6 +6,8 @@ import java.util.Map;
 /**
  * @Date 2024/1/26 11:16
  * @Created by weixiao
+ * <p>
+ * 代表创建的一个Instance
  */
 public class WxInstance {
     private WxClass klass;

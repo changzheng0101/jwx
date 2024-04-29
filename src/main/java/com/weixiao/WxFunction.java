@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class WxFunction implements WxCallable {
     private final Stmt.Function declaration;
-    // store var declare in func
+    // store parent env of current func
     private final Environment closure;
     private final boolean isInitializer;
 
@@ -20,18 +20,18 @@ public class WxFunction implements WxCallable {
     }
 
     @Override
-    public int arity() {
+    public int paramSize() {
         return declaration.params.size();
     }
 
     @Override
     public Object call(Interpreter interpreter, List<Object> arguments) {
+        // each call get a new environment
         Environment environment = new Environment(closure);
         for (int i = 0; i < declaration.params.size(); i++) {
             environment.define(declaration.params.get(i).lexeme,
                     arguments.get(i));
         }
-        // each call get a new environment
         try {
             interpreter.executeBlock(declaration.body, environment);
         } catch (Return returnValue) {
@@ -49,6 +49,7 @@ public class WxFunction implements WxCallable {
         return "<fn " + declaration.name.lexeme + ">";
     }
 
+    // add this to env
     public WxFunction bind(WxInstance instance) {
         Environment environment = new Environment(closure);
         environment.define("this", instance);

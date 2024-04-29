@@ -11,6 +11,7 @@ import java.util.Map;
  */
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     final Environment globals = new Environment();
+    // 可能是global  也可能是local 代表当前执行的环境
     private Environment environment = globals;
     private final Map<Expr, Integer> locals = new HashMap<>();
 
@@ -18,7 +19,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     public Interpreter() {
         globals.define("clock", new WxCallable() {
             @Override
-            public int arity() {
+            public int paramSize() {
                 return 0;
             }
 
@@ -148,10 +149,9 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                     "Can only call functions and classes.");
         }
         WxCallable function = (WxCallable) callee;
-        // arity() return the true args size of callee
-        if (arguments.size() != function.arity()) {
+        if (arguments.size() != function.paramSize()) {
             throw new RuntimeError(expr.paren, "Expected " +
-                    function.arity() + " arguments but got " +
+                    function.paramSize() + " arguments but got " +
                     arguments.size() + ".");
         }
         return function.call(this, arguments);
@@ -245,6 +245,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             throw new RuntimeError(expr.method,
                     "Undefined property '" + expr.method.lexeme + "'.");
         }
+        // a method from super class bind `this` bind to subclass Instance
         return method.bind(object);
     }
 
