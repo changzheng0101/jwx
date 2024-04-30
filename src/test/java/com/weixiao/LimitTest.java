@@ -28,33 +28,57 @@ public class LimitTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("loop_too_large.wx")
-    void testLoopTooLarge() throws IOException {
+    void testLoopTooLarge() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/limit/loop_too_large.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("no_reuse_constants.wx")
-    void testNoReuseConstants() throws IOException {
+    void testNoReuseConstants() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/limit/no_reuse_constants.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("stack_overflow.wx")
-    void testStackOverflow() throws IOException {
+    void testStackOverflow() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/limit/stack_overflow.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("too_many_constants.wx")
-    void testTooManyConstants() throws IOException {
+    void testTooManyConstants() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/limit/too_many_constants.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("too_many_locals.wx")
-    void testTooManyLocals() throws IOException {
+    void testTooManyLocals() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/limit/too_many_locals.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("too_many_upvalues.wx")
-    void testTooManyUpvalues() throws IOException {
+    void testTooManyUpvalues() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/limit/too_many_upvalues.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 }

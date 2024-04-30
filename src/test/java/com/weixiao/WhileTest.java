@@ -28,38 +28,76 @@ public class WhileTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("class_in_body.wx")
-    void testClassInBody() throws IOException {
+    void testClassInBody() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/while/class_in_body.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("closure_in_body.wx")
-    void testClosureInBody() throws IOException {
+    void testClosureInBody() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/while/closure_in_body.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("1", output[0].trim());
+		assertEquals("2", output[1].trim());
+		assertEquals("3", output[2].trim());
     }
 
     @Test
     @DisplayName("fun_in_body.wx")
-    void testFunInBody() throws IOException {
+    void testFunInBody() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/while/fun_in_body.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("return_closure.wx")
-    void testReturnClosure() throws IOException {
+    void testReturnClosure() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/while/return_closure.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("i", output[0].trim());
     }
 
     @Test
     @DisplayName("return_inside.wx")
-    void testReturnInside() throws IOException {
+    void testReturnInside() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/while/return_inside.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("i", output[0].trim());
     }
 
     @Test
     @DisplayName("syntax.wx")
-    void testSyntax() throws IOException {
+    void testSyntax() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/while/syntax.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("1", output[0].trim());
+		assertEquals("2", output[1].trim());
+		assertEquals("3", output[2].trim());
+		assertEquals("0", output[3].trim());
+		assertEquals("1", output[4].trim());
+		assertEquals("2", output[5].trim());
     }
 
     @Test
     @DisplayName("var_in_body.wx")
-    void testVarInBody() throws IOException {
+    void testVarInBody() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/while/var_in_body.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 }

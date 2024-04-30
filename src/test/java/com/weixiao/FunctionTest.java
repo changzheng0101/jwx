@@ -28,73 +28,138 @@ public class FunctionTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("body_must_be_block.wx")
-    void testBodyMustBeBlock() throws IOException {
+    void testBodyMustBeBlock() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/body_must_be_block.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("empty_body.wx")
-    void testEmptyBody() throws IOException {
+    void testEmptyBody() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/empty_body.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("nil", output[0].trim());
     }
 
     @Test
     @DisplayName("extra_arguments.wx")
-    void testExtraArguments() throws IOException {
+    void testExtraArguments() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/extra_arguments.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("local_mutual_recursion.wx")
-    void testLocalMutualRecursion() throws IOException {
+    void testLocalMutualRecursion() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/local_mutual_recursion.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("local_recursion.wx")
-    void testLocalRecursion() throws IOException {
+    void testLocalRecursion() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/local_recursion.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("21", output[0].trim());
     }
 
     @Test
     @DisplayName("missing_arguments.wx")
-    void testMissingArguments() throws IOException {
+    void testMissingArguments() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/missing_arguments.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("missing_comma_in_parameters.wx")
-    void testMissingCommaInParameters() throws IOException {
+    void testMissingCommaInParameters() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/missing_comma_in_parameters.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("mutual_recursion.wx")
-    void testMutualRecursion() throws IOException {
+    void testMutualRecursion() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/mutual_recursion.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("true", output[0].trim());
+		assertEquals("true", output[1].trim());
     }
 
     @Test
     @DisplayName("nested_call_with_arguments.wx")
-    void testNestedCallWithArguments() throws IOException {
+    void testNestedCallWithArguments() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/nested_call_with_arguments.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("hello world", output[0].trim());
     }
 
     @Test
     @DisplayName("parameters.wx")
-    void testParameters() throws IOException {
+    void testParameters() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/parameters.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("0", output[0].trim());
+		assertEquals("1", output[1].trim());
+		assertEquals("3", output[2].trim());
+		assertEquals("6", output[3].trim());
+		assertEquals("10", output[4].trim());
+		assertEquals("15", output[5].trim());
+		assertEquals("21", output[6].trim());
+		assertEquals("28", output[7].trim());
+		assertEquals("36", output[8].trim());
     }
 
     @Test
     @DisplayName("print.wx")
-    void testPrint() throws IOException {
+    void testPrint() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/print.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("<fn foo>", output[0].trim());
+		assertEquals("<native fn>", output[1].trim());
     }
 
     @Test
     @DisplayName("recursion.wx")
-    void testRecursion() throws IOException {
+    void testRecursion() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/recursion.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("21", output[0].trim());
     }
 
     @Test
     @DisplayName("too_many_arguments.wx")
-    void testTooManyArguments() throws IOException {
+    void testTooManyArguments() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/too_many_arguments.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("too_many_parameters.wx")
-    void testTooManyParameters() throws IOException {
+    void testTooManyParameters() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/function/too_many_parameters.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 }

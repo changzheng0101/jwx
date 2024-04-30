@@ -28,23 +28,43 @@ public class CommentsTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("line_at_eof.wx")
-    void testLineAtEof() throws IOException {
+    void testLineAtEof() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/comments/line_at_eof.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("ok", output[0].trim());
     }
 
     @Test
     @DisplayName("only_line_comment.wx")
-    void testOnlyLineComment() throws IOException {
+    void testOnlyLineComment() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/comments/only_line_comment.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("only_line_comment_and_line.wx")
-    void testOnlyLineCommentAndLine() throws IOException {
+    void testOnlyLineCommentAndLine() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/comments/only_line_comment_and_line.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("unicode.wx")
-    void testUnicode() throws IOException {
+    void testUnicode() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/comments/unicode.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("ok", output[0].trim());
     }
 }

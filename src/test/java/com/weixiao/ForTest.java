@@ -28,58 +28,123 @@ public class ForTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("class_in_body.wx")
-    void testClassInBody() throws IOException {
+    void testClassInBody() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/class_in_body.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("closure_in_body.wx")
-    void testClosureInBody() throws IOException {
+    void testClosureInBody() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/closure_in_body.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("4", output[0].trim());
+		assertEquals("1", output[1].trim());
+		assertEquals("4", output[2].trim());
+		assertEquals("2", output[3].trim());
+		assertEquals("4", output[4].trim());
+		assertEquals("3", output[5].trim());
     }
 
     @Test
     @DisplayName("fun_in_body.wx")
-    void testFunInBody() throws IOException {
+    void testFunInBody() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/fun_in_body.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("return_closure.wx")
-    void testReturnClosure() throws IOException {
+    void testReturnClosure() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/return_closure.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("i", output[0].trim());
     }
 
     @Test
     @DisplayName("return_inside.wx")
-    void testReturnInside() throws IOException {
+    void testReturnInside() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/return_inside.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("i", output[0].trim());
     }
 
     @Test
     @DisplayName("scope.wx")
-    void testScope() throws IOException {
+    void testScope() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/scope.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("0", output[0].trim());
+		assertEquals("-1", output[1].trim());
+		assertEquals("after", output[2].trim());
+		assertEquals("0", output[3].trim());
     }
 
     @Test
     @DisplayName("statement_condition.wx")
-    void testStatementCondition() throws IOException {
+    void testStatementCondition() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/statement_condition.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("statement_increment.wx")
-    void testStatementIncrement() throws IOException {
+    void testStatementIncrement() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/statement_increment.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("statement_initializer.wx")
-    void testStatementInitializer() throws IOException {
+    void testStatementInitializer() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/statement_initializer.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("syntax.wx")
-    void testSyntax() throws IOException {
+    void testSyntax() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/syntax.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("1", output[0].trim());
+		assertEquals("2", output[1].trim());
+		assertEquals("3", output[2].trim());
+		assertEquals("0", output[3].trim());
+		assertEquals("1", output[4].trim());
+		assertEquals("2", output[5].trim());
+		assertEquals("done", output[6].trim());
+		assertEquals("0", output[7].trim());
+		assertEquals("1", output[8].trim());
+		assertEquals("0", output[9].trim());
+		assertEquals("1", output[10].trim());
+		assertEquals("2", output[11].trim());
+		assertEquals("0", output[12].trim());
+		assertEquals("1", output[13].trim());
     }
 
     @Test
     @DisplayName("var_in_body.wx")
-    void testVarInBody() throws IOException {
+    void testVarInBody() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/for/var_in_body.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 }

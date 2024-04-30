@@ -28,58 +28,113 @@ public class ConstructorTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("arguments.wx")
-    void testArguments() throws IOException {
+    void testArguments() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/arguments.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("init", output[0].trim());
+		assertEquals("1", output[1].trim());
+		assertEquals("2", output[2].trim());
     }
 
     @Test
     @DisplayName("call_init_early_return.wx")
-    void testCallInitEarlyReturn() throws IOException {
+    void testCallInitEarlyReturn() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/call_init_early_return.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("init", output[0].trim());
+		assertEquals("init", output[1].trim());
+		assertEquals("Foo instance", output[2].trim());
     }
 
     @Test
     @DisplayName("call_init_explicitly.wx")
-    void testCallInitExplicitly() throws IOException {
+    void testCallInitExplicitly() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/call_init_explicitly.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("Foo.init(one)", output[0].trim());
+		assertEquals("Foo.init(two)", output[1].trim());
+		assertEquals("Foo instance", output[2].trim());
+		assertEquals("init", output[3].trim());
     }
 
     @Test
     @DisplayName("default.wx")
-    void testDefault() throws IOException {
+    void testDefault() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/default.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("Foo instance", output[0].trim());
     }
 
     @Test
     @DisplayName("default_arguments.wx")
-    void testDefaultArguments() throws IOException {
+    void testDefaultArguments() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/default_arguments.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("early_return.wx")
-    void testEarlyReturn() throws IOException {
+    void testEarlyReturn() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/early_return.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("init", output[0].trim());
+		assertEquals("Foo instance", output[1].trim());
     }
 
     @Test
     @DisplayName("extra_arguments.wx")
-    void testExtraArguments() throws IOException {
+    void testExtraArguments() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/extra_arguments.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("init_not_method.wx")
-    void testInitNotMethod() throws IOException {
+    void testInitNotMethod() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/init_not_method.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("not initializer", output[0].trim());
     }
 
     @Test
     @DisplayName("missing_arguments.wx")
-    void testMissingArguments() throws IOException {
+    void testMissingArguments() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/missing_arguments.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("return_in_nested_function.wx")
-    void testReturnInNestedFunction() throws IOException {
+    void testReturnInNestedFunction() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/return_in_nested_function.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("bar", output[0].trim());
+		assertEquals("Foo instance", output[1].trim());
     }
 
     @Test
     @DisplayName("return_value.wx")
-    void testReturnValue() throws IOException {
+    void testReturnValue() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/constructor/return_value.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 }

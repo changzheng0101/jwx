@@ -28,38 +28,75 @@ public class InheritanceTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("constructor.wx")
-    void testConstructor() throws IOException {
+    void testConstructor() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/inheritance/constructor.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("value", output[0].trim());
     }
 
     @Test
     @DisplayName("inherit_from_function.wx")
-    void testInheritFromFunction() throws IOException {
+    void testInheritFromFunction() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/inheritance/inherit_from_function.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("inherit_from_nil.wx")
-    void testInheritFromNil() throws IOException {
+    void testInheritFromNil() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/inheritance/inherit_from_nil.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("inherit_from_number.wx")
-    void testInheritFromNumber() throws IOException {
+    void testInheritFromNumber() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/inheritance/inherit_from_number.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("inherit_methods.wx")
-    void testInheritMethods() throws IOException {
+    void testInheritMethods() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/inheritance/inherit_methods.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("foo", output[0].trim());
+		assertEquals("bar", output[1].trim());
+		assertEquals("bar", output[2].trim());
     }
 
     @Test
     @DisplayName("parenthesized_superclass.wx")
-    void testParenthesizedSuperclass() throws IOException {
+    void testParenthesizedSuperclass() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/inheritance/parenthesized_superclass.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("set_fields_from_base_class.wx")
-    void testSetFieldsFromBaseClass() throws IOException {
+    void testSetFieldsFromBaseClass() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/inheritance/set_fields_from_base_class.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("foo 1", output[0].trim());
+		assertEquals("foo 2", output[1].trim());
+		assertEquals("bar 1", output[2].trim());
+		assertEquals("bar 2", output[3].trim());
+		assertEquals("bar 1", output[4].trim());
+		assertEquals("bar 2", output[5].trim());
     }
 }

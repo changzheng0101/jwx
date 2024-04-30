@@ -3,7 +3,10 @@ package com.weixiao.tools;
 import com.weixiao.Wx;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Date 2024/4/29 16:17
@@ -14,6 +17,12 @@ import java.util.function.Function;
 public class GenerateTest {
     private static final String headerFilePath = "src/main/java/com/weixiao/tools/header.txt";
     private static final String tailFilePath = "src/main/java/com/weixiao/tools/tail.txt";
+    private static final String[] testIgnore = {"scanning", "expressions"};
+
+    // 在行末尾添加 `// expect: xxx`
+    private static final Pattern expectedOutputPattern = Pattern.compile("// expect: ?(.*)");
+    // 在行末尾添加 `// expect runtime error: xxx`
+    private static final Pattern expectedRuntimeErrorPattern = Pattern.compile("// expect runtime error: (.+)");
 
 
     public static void main(String[] args) throws IOException {
@@ -39,6 +48,14 @@ public class GenerateTest {
         File[] files = folder.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
+                boolean skipThis = false;
+                for (String ignore : testIgnore) {
+                    if (ignore.equals(file.getName())) {
+                        skipThis = true;
+                        break;
+                    }
+                }
+                if (skipThis) continue;
                 writeTestFile(file.getAbsolutePath(), fileOutputDirectory);
             } else {
                 String absolutePath = file.getAbsolutePath();
@@ -47,17 +64,46 @@ public class GenerateTest {
                 writer.newLine();
                 writerLine("    @Test", writer);
                 writerLine(String.format("    @DisplayName(\"%s\")", fileName), writer);
-                writerLine(String.format("    void %s() throws IOException {", functionName), writer);
+                writerLine(String.format("    void %s() throws Exception {", functionName), writer);
+                generateTestFromFile(file, writer);
                 writerLine("    }", writer);
             }
         }
-
 
         // tail
         writeFileToWriter(tailFilePath, writer, null);
 
         writer.close();
         fileWriter.close();
+    }
+
+    /**
+     * 解析文件，生成test函数中的内容
+     *
+     * @param file   用于测试的.wx文件
+     * @param writer 用于写入文件
+     */
+    private static void generateTestFromFile(File file, BufferedWriter writer) throws IOException {
+        writerLine(String.format("\t\tString[] args = {\"%s\"};", file.getAbsolutePath().replace("\\", "/")), writer);
+        writerLine("\t\tint statusCode = catchSystemExit(() -> Wx.main(args));", writer);
+        writerLine("\t\tString[] output = standardOutputStreamCaptor.toString().split(lineSeparator);", writer);
+        int outputIndex = 0;
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            Matcher expectedOutputMatch = expectedOutputPattern.matcher(line);
+            if (expectedOutputMatch.find()) {
+                String matchedString = expectedOutputMatch.group(1);
+                matchedString = matchedString.replace("\"", "\\\"");
+                writerLine(String.format("\t\tassertEquals(\"%s\", output[%d].trim());", matchedString, outputIndex), writer);
+                outputIndex++;
+            }
+            Matcher expectedRuntimeErrorMatch = expectedRuntimeErrorPattern.matcher(line);
+//            if (expectedRuntimeErrorMatch.find()) {
+//                String matchedString = expectedOutputMatch.group(1);
+//            }
+        }
+        reader.close();
     }
 
     private static String parseClassName(String filePath) {

@@ -28,13 +28,28 @@ public class BlockTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("empty.wx")
-    void testEmpty() throws IOException {
+    void testEmpty() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/block/empty.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("ok", output[0].trim());
     }
 
     @Test
     @DisplayName("scope.wx")
-    void testScope() throws IOException {
+    void testScope() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/block/scope.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("inner", output[0].trim());
+		assertEquals("outer", output[1].trim());
     }
 }

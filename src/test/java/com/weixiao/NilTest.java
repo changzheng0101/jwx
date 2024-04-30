@@ -28,8 +28,18 @@ public class NilTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("literal.wx")
-    void testLiteral() throws IOException {
+    void testLiteral() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/nil/literal.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("nil", output[0].trim());
     }
 }

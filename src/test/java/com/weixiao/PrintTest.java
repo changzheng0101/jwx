@@ -28,8 +28,17 @@ public class PrintTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("missing_argument.wx")
-    void testMissingArgument() throws IOException {
+    void testMissingArgument() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/print/missing_argument.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 }

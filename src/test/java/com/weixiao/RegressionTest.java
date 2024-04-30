@@ -28,13 +28,27 @@ public class RegressionTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("394.wx")
-    void test394() throws IOException {
+    void test394() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/regression/394.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("B", output[0].trim());
     }
 
     @Test
     @DisplayName("40.wx")
-    void test40() throws IOException {
+    void test40() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/regression/40.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("false", output[0].trim());
     }
 }

@@ -268,6 +268,12 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     // call equals method
     private boolean isEqual(Object a, Object b) {
+        // NAN not equal to anything
+        if (a instanceof Double && b instanceof Double) {
+            if (Double.isNaN((Double) a) || Double.isNaN((Double) b)) {
+                return false;
+            }
+        }
         if (a == null && b == null) return true;
         if (a == null) return false;
 

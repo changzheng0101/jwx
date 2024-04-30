@@ -44,12 +44,11 @@ public class MyFirstTest {
     void testPrecedence() throws Exception {
         String[] args = {"src/test/java/files/precedence.wx"};
         Wx.main(args);
-        System.setOut(standardOut);
-        String[] split = standardOutputStreamCaptor.toString().split(lineSeparator);
-        Arrays.stream(split).forEach(System.out::println);
-        assertEquals("14", split[0].trim());
-        assertEquals("8", split[1].trim());
-        assertEquals("4", split[2].trim());
+        String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+        Arrays.stream(output).forEach(System.out::println);
+        assertEquals("14", output[0].trim());
+        assertEquals("8", output[1].trim());
+        assertEquals("4", output[2].trim());
     }
 
     @Test

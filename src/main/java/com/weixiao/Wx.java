@@ -28,6 +28,7 @@ public class Wx {
         } else {
             runPrompt();
         }
+        System.exit(0);
     }
 
     // 重置属性，方便多次运行测试

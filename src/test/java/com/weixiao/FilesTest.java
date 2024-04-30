@@ -28,18 +28,46 @@ public class FilesTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("empty_file.wx")
-    void testEmptyFile() throws IOException {
+    void testEmptyFile() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/empty_file.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("precedence.wx")
-    void testPrecedence() throws IOException {
+    void testPrecedence() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/precedence.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
+		assertEquals("14", output[0].trim());
+		assertEquals("8", output[1].trim());
+		assertEquals("4", output[2].trim());
+		assertEquals("0", output[3].trim());
+		assertEquals("true", output[4].trim());
+		assertEquals("true", output[5].trim());
+		assertEquals("true", output[6].trim());
+		assertEquals("true", output[7].trim());
+		assertEquals("0", output[8].trim());
+		assertEquals("0", output[9].trim());
+		assertEquals("0", output[10].trim());
+		assertEquals("0", output[11].trim());
+		assertEquals("4", output[12].trim());
     }
 
     @Test
     @DisplayName("unexpected_character.wx")
-    void testUnexpectedCharacter() throws IOException {
+    void testUnexpectedCharacter() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/unexpected_character.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 }

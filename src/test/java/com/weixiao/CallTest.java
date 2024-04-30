@@ -28,28 +28,49 @@ public class CallTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("bool.wx")
-    void testBool() throws IOException {
+    void testBool() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/call/bool.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("nil.wx")
-    void testNil() throws IOException {
+    void testNil() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/call/nil.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("num.wx")
-    void testNum() throws IOException {
+    void testNum() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/call/num.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("object.wx")
-    void testObject() throws IOException {
+    void testObject() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/call/object.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("string.wx")
-    void testString() throws IOException {
+    void testString() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/call/string.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 }

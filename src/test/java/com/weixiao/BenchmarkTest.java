@@ -28,58 +28,97 @@ public class BenchmarkTest {
         Wx.reset();
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setErr(standardErr);
+    }
+
     @Test
     @DisplayName("binary_trees.wx")
-    void testBinaryTrees() throws IOException {
+    void testBinaryTrees() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/binary_trees.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("equality.wx")
-    void testEquality() throws IOException {
+    void testEquality() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/equality.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("fib.wx")
-    void testFib() throws IOException {
+    void testFib() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/fib.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("instantiation.wx")
-    void testInstantiation() throws IOException {
+    void testInstantiation() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/instantiation.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("invocation.wx")
-    void testInvocation() throws IOException {
+    void testInvocation() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/invocation.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("method_call.wx")
-    void testMethodCall() throws IOException {
+    void testMethodCall() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/method_call.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("properties.wx")
-    void testProperties() throws IOException {
+    void testProperties() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/properties.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("string_equality.wx")
-    void testStringEquality() throws IOException {
+    void testStringEquality() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/string_equality.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("trees.wx")
-    void testTrees() throws IOException {
+    void testTrees() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/trees.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("zoo.wx")
-    void testZoo() throws IOException {
+    void testZoo() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/zoo.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 
     @Test
     @DisplayName("zoo_batch.wx")
-    void testZooBatch() throws IOException {
+    void testZooBatch() throws Exception {
+		String[] args = {"E:/code/OS/my_own_language/jwx/src/test/java/files/benchmark/zoo_batch.wx"};
+		int statusCode = catchSystemExit(() -> Wx.main(args));
+		String[] output = standardOutputStreamCaptor.toString().split(lineSeparator);
     }
 }
