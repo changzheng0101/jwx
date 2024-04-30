@@ -16,7 +16,7 @@ import java.util.List;
 public class Wx {
     static boolean hadError = false;
     static boolean hadRuntimeError = false;
-    private static final Interpreter interpreter = new Interpreter();
+    private static Interpreter interpreter = new Interpreter();
 
 
     public static void main(String[] args) throws IOException {
@@ -28,6 +28,13 @@ public class Wx {
         } else {
             runPrompt();
         }
+    }
+
+    // 重置属性，方便多次运行测试
+    public static void reset() {
+        hadError = false;
+        hadRuntimeError = false;
+        interpreter = new Interpreter();
     }
 
     // 直接读入源文件，并且执行
